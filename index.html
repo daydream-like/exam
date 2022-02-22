@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const debounce = (fn, delay) => {
+            let timer = null;
+            return function (args) {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+                setTimeout(() => {
+                    fn.call(this, ...args);
+                }, delay);
+            }
+        }
+        const throttle = (fn, delay) => {
+            const pre = Date.now();
+            return function (args) {
+                const now = Date.now();
+                if (now - pre >= delay) {
+                    pre = now;
+                    fn.call(this, ...args);
+                }
+            }
+        }
+        function deepClone(params) {
+            const weak = new WeakMap();
+            const recursion = (root) => {
+                let res = null;
+                if (Object.prototype.toString.call(root) === '[object Array]') {
+                    res = [];
+                    root.forEach(element => {
+                        res.push(recursion(element));
+                    });
+                } else if (Object.prototype.toString.call(root) === '[object Object]') {
+                    // 先判断循环引用
+                    if (weak.has(root)) {
+                        res = weak.get(root)
+                    } else {
+                        res = {};
+                        weak.set(root, res)
+                        for (const key in root) {
+                            res[key] = recursion(root[key]);
+                        }
+                    }
+                } else {
+                    res = root;
+                }
+                return res;
+            }
+            return recursion(params);
+        }
+        function myBind(obj, args) {
+            if (typeof this !== 'function') {
+                return console.log('what is trying to be bound need is function')
+            }
+            return (args1) => {
+                return this.call(obj, ...args, ...args1)
+            }
+        }
+        function New(fn, args) {
+            let obj = {}
+            obj.__proto__ = fn.prototype;
+            fn.call(obj, ...args)
+            return obj;
+        }
+
+        // 实现promise.all
+        function PromiseAll(arr) {
+            let res = [];
+            return new Promise((resolve, reject) => {
+                if (!arr) {
+                    resolve(res)
+                }
+                for (let i = 0; i < arr.length; i++) {
+                    Promise.prototype.then.call(arr[i], (val) => {
+                        res[i] = val;
+                        if (res.length === i) {
+                            resolve(res)
+                        }
+                    }, reject)
+                }
+            })
+        }
+        
+    </script>
+</body>
+
+</html>
