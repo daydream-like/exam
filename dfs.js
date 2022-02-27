@@ -42,6 +42,6 @@ function minDepth(root) {
     if (root.left != null && root.right == null) {
         return 1 + minDepth(root.left);
     }
-    return 1 + min(minDepth(root.left), minDepth(root.right));
+    return 1 + Math.min(minDepth(root.left), minDepth(root.right));
 }
 

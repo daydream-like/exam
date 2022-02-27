@@ -13,10 +13,10 @@ function compareVersions(v1, v2) {
     let v2Arr = v2.split('.');
     let maxLen = Math.max(v1Arr.length, v2Arr.length);
     if (v1Arr.length < v2Arr.length) {
-        v1Arr = Array.from(v1Arr.concat(Array(v2Arr.length - v1Arr.length).fill('0')))
+        v1Arr = v1Arr.concat(Array(v2Arr.length - v1Arr.length).fill('0'))
     }
     if (v1Arr.length > v2Arr.length) {
-        v2Arr = Array.from(v2Arr.concat(Array(v1Arr.length - v2Arr.length).fill('0')))
+        v2Arr = v2Arr.concat(Array(v1Arr.length - v2Arr.length).fill('0'))
     }
     while (maxLen--) {
         let v1Value = v1Arr.shift();

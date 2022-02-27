@@ -13,10 +13,11 @@
 function twosum(nums, target) {
     let map = new Map();
     for (let i = 0; i < nums.length; i++) {
-        if (!map.has(target - nums[i])) {
+        let element = target - nums[i]
+        if (!map.has(element)) {
             map.set(nums[i], i)
         } else {
-            return [map.get(target - nums[i]), i]
+            return [map.get(element), i]
         }
     }
     return []
@@ -24,3 +25,4 @@ function twosum(nums, target) {
 console.log(twosum([2, 7, 11, 15], 17))
 console.log(twosum([2, 7, 11, 15], 13))
 console.log(twosum([2, 7, 11, 15], 130))
+
