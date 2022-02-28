@@ -13,3 +13,4 @@ function hasPathSum(root, target) {
     // 递归左右子树，有一个返回true就找到了一条这样的路径
     return hasPathSum(root.left, target - root.value) || hasPathSum(root.right, target - root.value);
 }
+

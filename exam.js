@@ -125,6 +125,7 @@ function PromiseAll(arr) {
 
 function myInstance(left, right) {
     left = left.__proto__;
+    // left = Object.getPrototypeOf(left);
     right = right.prototype;
     while (true) {
         if (left === null) {
@@ -134,6 +135,7 @@ function myInstance(left, right) {
             return true;
         }
         left = left.__proto__;
+        // left = Object.getPrototypeOf(left);
     }
 }
 

@@ -20,7 +20,7 @@ function dfs(node, depth) {
     dfs(node.right, depth + 1) // 深搜右子树，深度+1
 }
 function maxDepth(root) {
-    if (root) { // 树为空，最大深度为0
+    if (!root) { // 树为空，最大深度为0
         return 0
     }
     dfs(root, 1)  // 从根节点深搜，初始深度为1
